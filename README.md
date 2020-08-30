@@ -22,48 +22,60 @@ For development, you will only need Node.js installed in your environement.
 ## Working with Postman
 
 Endpoint 1-> to book a ticket using a username, phoneno and showtime
-             choose post request in Postman
-             url: http://localhost:8000/bookTicket
-             json data format in Body of Postman
-             {
-                "username":"Roy",
-                "phoneno":6871009000,
-                "showtime":"04-09-2020 10:00"
-             }
-             Reference Screenshot: https://github.com/kuchi157/zomentum_movie_booking_system/blob/master/screenshots/bookTicket1_success.png
-             Invalid Test Screenshot: https://github.com/kuchi157/zomentum_movie_booking_system/blob/master/screenshots/bookTicket2_oldTimeTicket.png
+
+             ==> choose post request in Postman
+             ==> url: http://localhost:8000/bookTicket
+             ==> json data format in Body of Postman
+                 {
+                     "username":"Roy",
+                     "phoneno":6871009000,
+                     "showtime":"04-09-2020 10:00"
+                 }
+             ==> Reference Screenshot: https://github.com/kuchi157/zomentum_movie_booking_system/blob/master/screenshots/bookTicket1_success.png
+             ==> Invalid Test Screenshot: https://github.com/kuchi157/zomentum_movie_booking_system/blob/master/screenshots/bookTicket2_oldTimeTicket.png
                                       https://github.com/kuchi157/zomentum_movie_booking_system/blob/master/screenshots/bookTicket3_more_than_20Tickets_for_particular_time.png
+                                      
                                       
   
 Endpoint 2-> to update a ticket timing
-             choose patch request in Postman
-             url: http://localhost:8000/updateTiming/5f4bfe3e5702651f0cb67b2c
-             json data format in Body of Postman
-             {
-                "showtime":"04-09-2020 14:00"
-             }
-             Reference Screenshot: https://github.com/kuchi157/zomentum_movie_booking_system/blob/master/screenshots/updateTime1_success.png
-             Invalid Test Screenshot: https://github.com/kuchi157/zomentum_movie_booking_system/blob/master/screenshots/updateTime2_invalid_ticketID.png
+
+             ==> choose patch request in Postman
+             ==> url: http://localhost:8000/updateTiming/5f4bfe3e5702651f0cb67b2c
+             ==> json data format in Body of Postman
+                 {
+                     "showtime":"04-09-2020 14:00"
+                 }
+             ==> Reference Screenshot: https://github.com/kuchi157/zomentum_movie_booking_system/blob/master/screenshots/updateTime1_success.png
+             ==> Invalid Test Screenshot: https://github.com/kuchi157/zomentum_movie_booking_system/blob/master/screenshots/updateTime2_invalid_ticketID.png
                                       https://github.com/kuchi157/zomentum_movie_booking_system/blob/master/screenshots/updateTime3_more_than_20Tickets_for_particular_time.png
                                       https://github.com/kuchi157/zomentum_movie_booking_system/blob/master/screenshots/updateTime4_oldTime.png
                                       
 Endpoint 3-> View all the ticket for a particular time
-             choose get request in Postman
-             url: http://localhost:8000/viewTicket/04-09-2020 11:00
-             Reference Screenshot: https://github.com/kuchi157/zomentum_movie_booking_system/blob/master/screenshots/viewTicket1_success.png
-             Invalid Test Screenshot: https://github.com/kuchi157/zomentum_movie_booking_system/blob/master/screenshots/viewTicket2_noTicket.png
+
+             ==> choose get request in Postman
+             ==> url: http://localhost:8000/viewTicket/04-09-2020 11:00
+             ==> Reference Screenshot: https://github.com/kuchi157/zomentum_movie_booking_system/blob/master/screenshots/viewTicket1_success.png
+             ==> Invalid Test Screenshot: https://github.com/kuchi157/zomentum_movie_booking_system/blob/master/screenshots/viewTicket2_noTicket.png
+             
+             
              
 Endpoint 4-> delete particular ticket
-             choose delete request in Postman
-             url: http://localhost:8000/deleteTicket/5f4bfe4b5702651f0cb67b2d
-             Reference Screenshot: https://github.com/kuchi157/zomentum_movie_booking_system/blob/master/screenshots/deleteTicket1_success.png
-             Invalid Test Screenshot: https://github.com/kuchi157/zomentum_movie_booking_system/blob/master/screenshots/deleteTicket2_invalid_ticketID.png
+
+             ==> choose delete request in Postman
+             ==> url: http://localhost:8000/deleteTicket/5f4bfe4b5702651f0cb67b2d
+             ==> Reference Screenshot: https://github.com/kuchi157/zomentum_movie_booking_system/blob/master/screenshots/deleteTicket1_success.png
+             ==> Invalid Test Screenshot: https://github.com/kuchi157/zomentum_movie_booking_system/blob/master/screenshots/deleteTicket2_invalid_ticketID.png
+             
+             
              
 Endpoint 5-> View user's details based on ticket Id
-             choose get request in Postman
-             url: http://localhost:8000/viewTicketUser/5f4bfe3e5702651f0cb67b2c
-             Reference Screenshot: https://github.com/kuchi157/zomentum_movie_booking_system/blob/master/screenshots/viewUser1_success.png
-             Invalid Test Screenshot: https://github.com/kuchi157/zomentum_movie_booking_system/blob/master/screenshots/viewUser2_invalid_ticketID.png
+
+             ==> choose get request in Postman
+             ==> url: http://localhost:8000/viewTicketUser/5f4bfe3e5702651f0cb67b2c
+             ==> Reference Screenshot: https://github.com/kuchi157/zomentum_movie_booking_system/blob/master/screenshots/viewUser1_success.png
+             ==> Invalid Test Screenshot: https://github.com/kuchi157/zomentum_movie_booking_system/blob/master/screenshots/viewUser2_invalid_ticketID.png
+             
+             
              
              
 ## Use of CronJob
