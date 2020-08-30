@@ -1,0 +1,16 @@
+{
+  "name": "zomentum_movie_booking_system",
+  "version": "1.0.0",
+  "description": "ticket booking system with the feature to book a ticket, update ticket timing, view all the tickets, delete the ticket, view user details using ticket id",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "gyanendra priyadarshi",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongodb": "^3.6.0",
+    "mongoose": "^5.10.2"
+  }
+}
