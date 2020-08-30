@@ -73,6 +73,21 @@ app.patch("/updateTiming/:id", async (req, res) => {
   }
 });
 
+app.get("/viewTicket/:showtime", async (req, res) => {
+  try {
+    const viewTicket = await Ticket.find({
+      showtime: req.params.showtime,
+    });
+
+    if (viewTicket.length == 0) {
+      return res.status(404).send("No ticket booked for the given time!");
+    }
+    res.send(viewTicket);
+  } catch (e) {
+    res.status(500).send(e);
+  }
+});
+
 //listening the application
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
