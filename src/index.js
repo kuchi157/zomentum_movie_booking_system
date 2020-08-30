@@ -1,5 +1,6 @@
 const express = require("express");
 require("./db/database");
+const Ticket = require("./models/ticket");
 
 const app = express();
 app.use(express.json());
