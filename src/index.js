@@ -1,5 +1,6 @@
 const express = require("express");
 const moment = require("moment");
+const CronJob = require("cron").CronJob;
 require("./db/database");
 const Ticket = require("./models/ticket");
 
@@ -121,6 +122,29 @@ app.get("/viewTicketUser/:id", async (req, res) => {
     res.status(500).send(e);
   }
 });
+
+const job = new CronJob("* * * * * *", async () => {
+  try {
+    const ticket = await Ticket.find({ expired: false });
+    for (i = 0; i < ticket.length; i++) {
+      ticketTime = ticket[i].UTCtiming;
+      timeDiff = moment().diff(ticketTime, "hours");
+
+      if (timeDiff >= 8) {
+        await Ticket.findOneAndUpdate(
+          { _id: ticket[i]._id },
+          { expired: true },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
+    }
+    await Ticket.deleteMany({ expired: true });
+  } catch (e) {}
+});
+job.start();
 
 //listening the application
 app.listen(port, () => {
