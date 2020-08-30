@@ -4,7 +4,7 @@
   "description": "ticket booking system with the feature to book a ticket, update ticket timing, view all the tickets, delete the ticket, view user details using ticket id",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js"
   },
   "author": "gyanendra priyadarshi",
   "license": "ISC",

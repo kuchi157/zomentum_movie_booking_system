@@ -144,7 +144,7 @@ const job = new CronJob("* * * * * *", async () => {
       ticketTime = ticket[i].UTCtiming;
       timeDiff = moment().diff(ticketTime, "hours"); //curentTime-ticketTime
 
-      //Updating ticket to expired if currTime-ticketTime>8 hrs
+      //Updating ticket to expired if currTime-ticketTime>=8 hrs
       if (timeDiff >= 8) {
         await Ticket.findOneAndUpdate(
           { _id: ticket[i]._id },
