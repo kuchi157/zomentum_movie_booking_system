@@ -1,9 +1,10 @@
 const express = require("express");
 const moment = require("moment");
 const CronJob = require("cron").CronJob;
-require("./db/database");
+const connectDB = require("./db/database");
 const Ticket = require("./models/ticket");
 
+connectDB();
 const app = express();
 app.use(express.json());
 const port = process.env.PORT || 8000;
