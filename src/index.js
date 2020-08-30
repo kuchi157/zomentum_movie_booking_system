@@ -8,14 +8,16 @@ const app = express();
 app.use(express.json());
 const port = process.env.PORT || 8000;
 
+//EndPoint- to book a ticket using a username, phoneno and showtime
 app.post("/bookTicket", async (req, res) => {
   const time = moment(req.body.showtime, "DD-MM-YYYY hh:mm");
-  const utcTime = time.toISOString();
+  const utcTime = time.toISOString(); //converting time to utc format
 
   req.body.UTCtiming = utcTime;
 
-  timeDiff = moment().diff(utcTime, "seconds");
+  timeDiff = moment().diff(utcTime, "seconds"); //currTime-ticketTime
 
+  //Ticket for movie already started or over cannot be book
   if (timeDiff > 0) {
     return res
       .status(406)
@@ -26,6 +28,7 @@ app.post("/bookTicket", async (req, res) => {
     showtime: req.body.showtime,
   });
 
+  //checking for a particular timing, a maximum of 20 tickets can be booked
   if (oldTicket.length >= 20) {
     return res
       .status(404)
@@ -43,12 +46,14 @@ app.post("/bookTicket", async (req, res) => {
   }
 });
 
+//Endpoint- to update a ticket timing
 app.patch("/updateTiming/:id", async (req, res) => {
   const time = moment(req.body.showtime, "DD-MM-YYYY hh:mm");
-  const utcTime = time.toISOString();
+  const utcTime = time.toISOString(); //converting time to UTC format
 
-  timeDiff = moment().diff(utcTime, "seconds");
+  timeDiff = moment().diff(utcTime, "seconds"); //currentTime-ticketTime
 
+  //Time cannot be updated for movie already started or over
   if (timeDiff > 0) {
     return res
       .status(406)
@@ -64,6 +69,7 @@ app.patch("/updateTiming/:id", async (req, res) => {
       }
     );
 
+    //Checking Invalid Ticket ID
     if (ticket == null) {
       return res.status(404).send("Invalid Ticket Id!");
     }
@@ -74,12 +80,14 @@ app.patch("/updateTiming/:id", async (req, res) => {
   }
 });
 
+//Endpoint- View all the ticket for a particular time
 app.get("/viewTicket/:showtime", async (req, res) => {
   try {
     const viewTicket = await Ticket.find({
       showtime: req.params.showtime,
     });
 
+    //Checking if no ticket booked for the given time
     if (viewTicket.length == 0) {
       return res.status(404).send("No ticket booked for the given time!");
     }
@@ -89,10 +97,12 @@ app.get("/viewTicket/:showtime", async (req, res) => {
   }
 });
 
+//Endpoint- delete particular ticket
 app.delete("/deleteTicket/:id", async (req, res) => {
   try {
     const ticket = await Ticket.findById(req.params.id);
 
+    //Checking Invalid Ticket ID
     if (ticket == null) {
       return res.status(404).send("Invalid Ticket Id!");
     }
@@ -104,12 +114,14 @@ app.delete("/deleteTicket/:id", async (req, res) => {
   }
 });
 
+//Endpoint- View user's details based on ticket Id
 app.get("/viewTicketUser/:id", async (req, res) => {
   try {
     const ticketUser = await Ticket.find({
       _id: req.params.id,
     });
 
+    //Checking Invalid Ticket ID
     if (ticketUser.length == 0) {
       return res.status(404).send("Invalid Ticket Id!");
     }
@@ -123,13 +135,15 @@ app.get("/viewTicketUser/:id", async (req, res) => {
   }
 });
 
+//Using CronJob for updating expiry ticket to expired  and deleting of expiry tickets
 const job = new CronJob("* * * * * *", async () => {
   try {
     const ticket = await Ticket.find({ expired: false });
     for (i = 0; i < ticket.length; i++) {
       ticketTime = ticket[i].UTCtiming;
-      timeDiff = moment().diff(ticketTime, "hours");
+      timeDiff = moment().diff(ticketTime, "hours"); //curentTime-ticketTime
 
+      //Updating ticket to expired if currTime-ticketTime>8 hrs
       if (timeDiff >= 8) {
         await Ticket.findOneAndUpdate(
           { _id: ticket[i]._id },
@@ -141,6 +155,8 @@ const job = new CronJob("* * * * * *", async () => {
         );
       }
     }
+
+    //Deleting ticket automatically if already expired
     await Ticket.deleteMany({ expired: true });
   } catch (e) {}
 });
