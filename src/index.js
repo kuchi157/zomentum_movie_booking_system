@@ -88,6 +88,21 @@ app.get("/viewTicket/:showtime", async (req, res) => {
   }
 });
 
+app.delete("/deleteTicket/:id", async (req, res) => {
+  try {
+    const ticket = await Ticket.findById(req.params.id);
+
+    if (ticket == null) {
+      return res.status(404).send("Invalid Ticket Id!");
+    }
+
+    ticket.remove();
+    res.send("ticket got removed!");
+  } catch (e) {
+    res.status(500).send(e);
+  }
+});
+
 //listening the application
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
