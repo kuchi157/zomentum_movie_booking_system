@@ -60,6 +60,19 @@ app.patch("/updateTiming/:id", async (req, res) => {
       .status(406)
       .send("Ticket time cannot be updated. Movie already started or over ");
   }
+
+  const oldTicket = await Ticket.find({
+    showtime: req.body.showtime,
+  });
+
+  //checking for a particular timing, a maximum of 20 tickets can be booked
+  if (oldTicket.length >= 20) {
+    return res
+      .status(404)
+      .send(
+        "Sorry no ticket is available. All tickets are already being booked for this time."
+      );
+  }
   try {
     ticket = await Ticket.findOneAndUpdate(
       { _id: req.params.id },
